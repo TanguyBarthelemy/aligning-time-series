@@ -12,9 +12,9 @@ library("JDCruncheR")
 
 # Chargement des outputs -------------------------------------------------------
 
-options(cruncher_bin_directory = "C:/Users/UTZK0M/Software/jwsacruncher-2.2.4/bin")
-getOption("cruncher_bin_directory")
-
+# options(cruncher_bin_directory = "C:/Users/UTZK0M/Software/jwsacruncher-2.2.4/bin")
+# getOption("cruncher_bin_directory")
+# 
 # cruncher_and_param(workspace = "./WS/ws_new.xml",
 #                    rename_multi_documents = FALSE, # Pour renommer les dossiers en sortie : pas utile ici
 #                    delete_existing_file = TRUE, # Pour remplacer les sorties existantes
@@ -32,7 +32,7 @@ getOption("cruncher_bin_directory")
 # )
 
 
-# Récupération des séries -------------------------------------------------------
+# Récupération des séries ------------------------------------------------------
 
 old_cvs <- read.csv("./WS/ws_anc/Output/SAProcessing-1/series_sa.csv", 
                     sep = ";", check.names = FALSE, dec = ",")[, -1] |> 
@@ -51,28 +51,31 @@ serie_a_recuperer <- c(setdiff(colnames(new_cvs), colnames(old_cvs)),
                        setdiff(colnames(old_cvs), colnames(new_cvs)))
 
 
-# Paramètres du raccord ---------------------------------------------------
+# Paramètres du raccord --------------------------------------------------------
 
 start2 <- as.Date('2012-01-01')
 end2 <- as.Date('2014-12-01')
 
+start2_ts <- c(as.numeric(format(start2, format = "%Y")), 
+               as.numeric(format(start2, format = "%m")))
+end2_ts <- c(as.numeric(format(end2, format = "%Y")), 
+             as.numeric(format(end2, format = "%m")))
 
-# Chargement des fonctions ------------------------------------------------
+# Chargement des fonctions -----------------------------------------------------
 
 source("./R/utility.R", encoding = "UTF-8")
 source("./R/best_cut.R", encoding = "UTF-8")
 
-# Création des graphiques -------------------------------------------------
 
-serie <- serie_a_expertiser[1]
+# Création des graphiques ------------------------------------------------------
 
+id_serie <- serie_a_expertiser[1]
 
-
-create_graph(serie_a_expertiser[1])
-create_graph2(serie_a_expertiser[1])
-
+create_graph(id_serie)
+create_graph2(id_serie)
 
 
-# Création doc rmd --------------------------------------------------------
+
+# Création doc rmd -------------------------------------------------------------
 
 rmarkdown::render("./R/Rapport.Rmd")

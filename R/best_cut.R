@@ -1,15 +1,16 @@
 
-create_graph <- function(serie, eps = NULL) {
+create_graph <- function(id_serie, eps = NULL) {
     
     data2plot <- cbind(
-        old = old_cvs[, serie] |> window(end = c(2014, 12)), 
-        new = new_cvs[, serie] |> window(start = 2012)#, 
-        # raw = brutes[, serie]
+        old = old_cvs[, id_serie] |> window(end = end2_ts), 
+        new = new_cvs[, id_serie] |> window(start = start2_ts)#, 
+        # raw = brutes[, id_serie]
     )
     
     find_raccord <- cbind(
-        old = old_cvs[, serie] |> window(start = 2012, end = c(2014, 12)), 
-        new = new_cvs[, serie] |> window(start = 2012, end = c(2014, 12))) |> 
+        old = old_cvs[, id_serie], 
+        new = new_cvs[, id_serie]) |> 
+        window(start = start2_ts, end = end2_ts)|> 
         as.data.frame() |> 
         dplyr::mutate(
             date = seq.Date(from = start2, 
@@ -24,7 +25,7 @@ create_graph <- function(serie, eps = NULL) {
         dplyr::select(date, old, ev_old, new, ev_new, 
                       mm_sgn, mm_sgn_ev, diff, diff_ev)
     
-    graph <- dygraph(data2plot, main = paste("Comparaison cvs de la série", serie))
+    graph <- dygraph(data2plot, main = paste("Comparaison cvs de la série", id_serie))
     found <- FALSE
     if (is.null(eps)) eps <- 0.0625
     
@@ -66,16 +67,18 @@ create_graph <- function(serie, eps = NULL) {
     graph
 }
 
-create_graph2 <- function(serie, largeur_ma = NULL) {
+create_graph2 <- function(id_serie, largeur_ma = NULL) {
+    
     data2plot <- cbind(
-        old = old_cvs[, serie] |> window(end = c(2014, 12)), 
-        new = new_cvs[, serie] |> window(start = 2012)#, 
-        # raw = brutes[, serie]
+        old = old_cvs[, id_serie] |> window(end = end2_ts), 
+        new = new_cvs[, id_serie] |> window(start = start2_ts)#, 
+        # raw = brutes[, id_serie]
     )
     
     find_raccord <- cbind(
-        old = old_cvs[, serie] |> window(start = 2012, end = c(2014, 12)), 
-        new = new_cvs[, serie] |> window(start = 2012, end = c(2014, 12))) |> 
+        old = old_cvs[, id_serie], 
+        new = new_cvs[, id_serie]) |> 
+        window(start = start2_ts, end = end2_ts)|> 
         as.data.frame() |> 
         dplyr::mutate(
             date = seq.Date(from = start2, 
@@ -112,7 +115,7 @@ create_graph2 <- function(serie, largeur_ma = NULL) {
         }
     }
     
-    graph <- dygraph(data2plot, main = paste("Comparaison cvs de la série", serie)) |> 
+    graph <- dygraph(data2plot, main = paste("Comparaison cvs de la série", id_serie)) |> 
         dyShading(from = add_months(start2, k_record), 
                   to = add_months(start2, k_record + largeur_ma - 1), 
                   color = "#FFE6E6") |> 
