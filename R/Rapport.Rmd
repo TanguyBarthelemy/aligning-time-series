@@ -1,0 +1,24 @@
+---
+title: "Comparaison cvs pour raccord"
+output: 
+    html_document:
+        toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Comparaison P1
+
+```{r, echo = FALSE}
+lapply(serie_a_expertiser, \(x) create_graph(x)) |> 
+    htmltools::tagList()
+```
+
+## Comparaison P2
+
+```{r, echo = FALSE}
+lapply(serie_a_expertiser, \(x) create_graph2(x)) |> 
+    htmltools::tagList()
+```
