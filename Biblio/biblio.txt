@@ -1,0 +1,24 @@
+References :
+
+- 01
+	- titre : COHÉRENCE DES SÉRIES TEMPORELLES
+	- url : https://www.ipcc-nggip.iges.or.jp/public/2006gl/french/pdf/1_Volume1/V1_5_Ch5_Timeseries.pdf
+	- site : ipcc
+
+
+- 02
+	- titre : Méthodologie - Raccordement de séries temporelles
+	- url : https://www.oecd.org/fr/sdd/methodologie-raccordementdeseriestemporelles.htm
+	- site : OCDE
+
+- 03
+	- titre : Analyse de l'impact d'un changement de méthode de raccordement des séries temporelles
+	- site : OCDE
+
+- 04
+	- titre : Désaisonnaliser les séries très longues par sous-période*
+	- site : Insee
+
+- 05
+	- titre : DÉSAISONNALISER LES SÉRIES TRÈS LONGUES PAR SOUS-PÉRIODE
+	- site : Insee
