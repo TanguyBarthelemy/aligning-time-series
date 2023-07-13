@@ -8,6 +8,14 @@
 
 library("dygraphs")
 library("JDCruncheR")
+library("ggplot2")
+
+
+# Chargement des fonctions -----------------------------------------------------
+
+source("./R/function/utility.R", encoding = "UTF-8")
+source("./R/function/best_cut.R", encoding = "UTF-8")
+source("./R/function/get_score.R", encoding = "UTF-8")
 
 
 # Chargement des outputs -------------------------------------------------------
@@ -56,15 +64,8 @@ serie_a_recuperer <- c(setdiff(colnames(new_cvs), colnames(old_cvs)),
 start2 <- as.Date('2012-01-01')
 end2 <- as.Date('2014-12-01')
 
-start2_ts <- c(as.numeric(format(start2, format = "%Y")), 
-               as.numeric(format(start2, format = "%m")))
-end2_ts <- c(as.numeric(format(end2, format = "%Y")), 
-             as.numeric(format(end2, format = "%m")))
-
-# Chargement des fonctions -----------------------------------------------------
-
-source("./R/utility.R", encoding = "UTF-8")
-source("./R/best_cut.R", encoding = "UTF-8")
+start2_ts <- date2date_ts(start2)
+end2_ts <- date2date_ts(end2)
 
 
 # Création des graphiques ------------------------------------------------------
@@ -74,6 +75,14 @@ id_serie <- serie_a_expertiser[1]
 create_graph(id_serie)
 create_graph2(id_serie)
 
+get_all_score(id_serie)
+get_all_combined_scores(list_id_serie = serie_a_expertiser) |> plot_score()
+
+get_all_contribution() |> 
+    window(start = c(2012, 01), end = c(2012, 01)) |> 
+    plot_contribution(nb = 5)
+
+get_all_score("RF2342") |> plot_score()
 
 
 # Création doc rmd -------------------------------------------------------------
